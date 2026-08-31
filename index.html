@@ -145,16 +145,68 @@ textarea{resize:vertical;min-height:78px;line-height:1.55}
 .hidden{display:none!important}
 .toast{position:fixed;left:50%;bottom:26px;transform:translateX(-50%);background:var(--text);color:var(--bg);font-size:13.5px;font-weight:600;padding:10px 18px;border-radius:99px;z-index:120;box-shadow:0 6px 24px rgba(0,0,0,.22)}
 
-/* impresión */
+/* ---------- informe (vista de sólo lectura, la que se imprime) ---------- */
+.portada{padding:48px 0 8px;border-bottom:2px solid var(--text);margin-bottom:32px}
+.portada .k{font-size:12px;letter-spacing:.14em;text-transform:uppercase;color:var(--muted-2);font-weight:700;margin:0 0 12px}
+.portada h1{font-size:38px;margin-bottom:8px}
+.portada .sub{font-size:17px;color:var(--muted);margin:0 0 24px}
+.datos{display:grid;grid-template-columns:repeat(auto-fit,minmax(150px,1fr));gap:18px;margin-bottom:28px}
+.datos div span{display:block;font-size:11.5px;letter-spacing:.1em;text-transform:uppercase;color:var(--muted-2);font-weight:700;margin-bottom:3px}
+.datos div b{font-weight:600;font-size:15px}
+
+.aviso{background:var(--rompe-soft);border:1px solid var(--rompe);color:var(--rompe);border-radius:10px;padding:14px 18px;margin:0 0 26px;font-size:14px}
+.aviso b{display:block;margin-bottom:4px}
+
+.seccion{margin:44px 0 20px;padding-bottom:10px;border-bottom:1px solid var(--border)}
+.seccion h2{font-size:24px}
+.seccion p{margin:6px 0 0;color:var(--muted);font-size:14px}
+
+.rep{border:1px solid var(--border);border-radius:10px;padding:22px 24px;margin-bottom:16px;background:var(--surface)}
+.rep-top{display:flex;gap:14px;align-items:flex-start;justify-content:space-between;margin-bottom:6px}
+.rep-top h3{font-size:18px}
+.rep .num{font-size:11.5px;letter-spacing:.11em;text-transform:uppercase;color:var(--muted-2);font-weight:700;margin:0 0 5px}
+.rep .donde{font-size:13px;color:var(--muted-2);margin:0 0 14px}
+.rep-cols{display:grid;grid-template-columns:minmax(0,1fr) 290px;gap:22px;align-items:start}
+@media(max-width:820px){.rep-cols{grid-template-columns:1fr}}
+.rep-cols img{width:100%;border:1px solid var(--border);border-radius:8px;display:block}
+.rep dl{margin:0}
+.rep dt{font-size:11.5px;letter-spacing:.11em;text-transform:uppercase;color:var(--muted-2);font-weight:700;margin:14px 0 4px}
+.rep dt:first-child{margin-top:0}
+.rep dd{margin:0;font-size:15px;line-height:1.62;white-space:pre-wrap}
+.tag{display:inline-flex;align-items:center;gap:6px;font-size:12.5px;font-weight:700;padding:4px 11px;border-radius:99px;white-space:nowrap;color:#fff}
+.tag[data-v=cumple]{background:var(--cumple)}
+.tag[data-v=rompe]{background:var(--rompe)}
+.tag[data-v=na]{background:var(--na)}
+.tag[data-s="0"]{background:var(--s0)}
+.tag[data-s="1"]{background:var(--s1)}
+.tag[data-s="2"]{background:var(--s2);color:#12172a}
+.tag[data-s="3"]{background:var(--s3)}
+.tag[data-s="4"]{background:var(--s4)}
+.factlist{font-size:13px;color:var(--muted);margin:10px 0 0}
+
+/* ---------- impresión ---------- */
+@page{size:A4;margin:16mm 14mm}
 @media print{
-  .top,.toolbar,.drop,.shot .rm,.btn,.no-print{display:none!important}
-  body{background:#fff;color:#000;font-size:11pt}
-  .item{break-inside:avoid;border:1px solid #bbb;margin-bottom:10px}
-  .item-body{grid-template-columns:1fr 240px}
-  textarea,input,select{border:none!important;padding:0!important;background:transparent!important;resize:none}
-  .cc,.sev-help{display:none}
+  .top,.toolbar,.foot,.no-print,.drop,.shot .rm{display:none!important}
+  html,body{background:#fff!important;color:#000!important;font-size:10.5pt}
   .wrap{max-width:none;padding:0}
   a{text-decoration:none;color:#000}
+
+  .portada{padding:0 0 14px;border-bottom:2px solid #000;break-after:page}
+  .portada h1{font-size:26pt}
+  .datos div b{font-size:11pt}
+
+  .seccion{break-before:page;margin:0 0 14px;border-bottom:1px solid #999}
+  .seccion:first-of-type{break-before:auto}
+  .seccion h2{font-size:16pt}
+
+  .rep{break-inside:avoid;border:1px solid #bbb;border-radius:6px;padding:12px 14px;margin-bottom:10px;background:#fff}
+  .rep-cols{grid-template-columns:minmax(0,1fr) 210px;gap:14px}
+  .rep-cols img{border:1px solid #ccc;max-height:78mm;object-fit:contain;object-position:top}
+  .rep dd{font-size:10pt;line-height:1.45}
+  .rep dt{font-size:7.5pt;margin:9px 0 2px}
+  .tag{border:1px solid #999;print-color-adjust:exact;-webkit-print-color-adjust:exact}
+  .panel,.bar .track i{print-color-adjust:exact;-webkit-print-color-adjust:exact}
 }
 </style>
 </head>
@@ -165,9 +217,9 @@ textarea{resize:vertical;min-height:78px;line-height:1.55}
     <a class="brand" href="#/"><span class="brand-mark">UX</span> Evaluador UX</a>
     <div class="top-actions">
       <button class="btn btn-ghost" id="btn-import">Importar</button>
-      <button class="btn btn-ghost" id="btn-print">Imprimir / PDF</button>
       <button class="btn btn-ghost" id="btn-reset">Vaciar</button>
-      <button class="btn btn-primary" id="btn-export">Exportar JSON</button>
+      <button class="btn btn-ghost" id="btn-export">Exportar JSON</button>
+      <a class="btn btn-primary" href="#/informe" id="btn-informe">Descargar PDF</a>
     </div>
   </div>
 </header>
@@ -372,6 +424,7 @@ function render(){
   const h = location.hash || "#/";
   if(h.startsWith("#/leyes")) vistaLeyes();
   else if(h.startsWith("#/heuristicas")) vistaHeuristicas();
+  else if(h.startsWith("#/informe")) vistaInforme();
   else vistaInicio();
   window.scrollTo(0, 0);
 }
@@ -626,6 +679,113 @@ function conectarHeu(id){
   conectarCaptura(el, d, ()=>vistaHeuristicas());
 }
 
+/* ---------- informe: vista de sólo lectura, es la que se imprime ---------- */
+function vistaInforme(){
+  const leyesHechas = LEYES.filter(l=>leyLista(l.id));
+  const heuHechas   = HEURISTICAS.filter(h=>heuLista(h.id));
+  const faltanLeyes = LEYES.length - leyesHechas.length;
+  const faltanHeu   = HEURISTICAS.length - heuHechas.length;
+  const p = S.proyecto;
+
+  const fecha = p.fecha ? new Date(p.fecha+"T12:00:00").toLocaleDateString("es-AR",{day:"numeric",month:"long",year:"numeric"}) : "—";
+
+  const avisos = [];
+  if(faltanHeu) avisos.push(`Faltan <b style="display:inline">${faltanHeu}</b> de las 10 heurísticas. La consigna pide las 10 completas, sin excepción.`);
+  if(leyesHechas.length < 8) avisos.push(`Sólo hay ${leyesHechas.length} leyes documentadas. El piso sugerido es 8 de 14.`);
+  if(!p.producto) avisos.push("Falta el nombre del producto evaluado.");
+
+  app.innerHTML = `
+  <div class="wrap">
+    <div class="no-print" style="padding:24px 0 0;display:flex;gap:10px;align-items:center;flex-wrap:wrap">
+      <a class="btn btn-ghost" href="#/">← Volver a editar</a>
+      <button class="btn btn-primary" id="ir-imprimir">Descargar PDF</button>
+      <span style="font-size:13px;color:var(--muted-2)">En el diálogo de impresión elegí <b>Destino → Guardar como PDF</b>.</span>
+    </div>
+
+    ${avisos.length ? `<div class="aviso no-print" style="margin-top:22px">
+      <b>Revisá esto antes de entregar</b>${avisos.map(a=>`<div>· ${a}</div>`).join("")}</div>` : ""}
+
+    <section class="portada">
+      <p class="k">Evaluación heurística de interfaz</p>
+      <h1>${esc(p.producto || "Producto sin nombre")}</h1>
+      <p class="sub">Leyes UX y heurísticas de Nielsen</p>
+      <div class="datos">
+        <div><span>Producto</span><b>${esc(p.producto || "—")}</b></div>
+        <div><span>URL</span><b>${esc(p.url || "—")}</b></div>
+        <div><span>Equipo</span><b>${esc(p.evaluador || "—")}</b></div>
+        <div><span>Fecha</span><b>${esc(fecha)}</b></div>
+        <div><span>Leyes documentadas</span><b>${leyesHechas.length} de ${LEYES.length}</b></div>
+        <div><span>Heurísticas evaluadas</span><b>${heuHechas.length} de ${HEURISTICAS.length}</b></div>
+      </div>
+      ${resumenHTML()}
+    </section>
+
+    <section class="seccion"><h2>Tablero 01 · Leyes UX</h2>
+      <p>Recorrido de las navegaciones principales usando las leyes como checklist.</p></section>
+    ${leyesHechas.length ? leyesHechas.map(repLeyHTML).join("")
+      : `<p style="color:var(--muted)">Todavía no hay ninguna ley documentada.</p>`}
+
+    <section class="seccion"><h2>Tablero 02 · Heurísticas de Nielsen</h2>
+      <p>Severidad en la escala de Nielsen de 0 a 4.</p></section>
+    ${heuHechas.length ? heuHechas.map(repHeuHTML).join("")
+      : `<p style="color:var(--muted)">Todavía no hay ninguna heurística evaluada.</p>`}
+  </div>`;
+
+  document.getElementById("ir-imprimir").onclick = ()=>window.print();
+}
+
+function repLeyHTML(l){
+  const d = ley(l.id);
+  const idx = LEYES.findIndex(x=>x.id===l.id)+1;
+  const et = {cumple:"Cumple", rompe:"Rompe", na:"No aplica"}[d.estado] || "—";
+  return `
+  <article class="rep">
+    <div class="rep-top">
+      <div>
+        <p class="num">Ley ${String(idx).padStart(2,"0")}</p>
+        <h3>${esc(l.nombre)}</h3>
+      </div>
+      <span class="tag" data-v="${esc(d.estado)}">${esc(et)}</span>
+    </div>
+    <p class="donde">${esc(d.pantalla || "Pantalla no indicada")}</p>
+    <div class="rep-cols">
+      <dl>
+        <dt>Ley</dt><dd style="font-style:italic;color:var(--muted)">“${esc(l.enunciado)}”</dd>
+        <dt>Qué pasa y por qué</dt><dd>${esc(d.explicacion) || "—"}</dd>
+      </dl>
+      <div>${d.captura ? `<img src="${d.captura}" alt="Captura de ${esc(l.nombre)}">` : ""}</div>
+    </div>
+  </article>`;
+}
+
+function repHeuHTML(h){
+  const d = heu(h.id);
+  const s = SEVERIDAD[d.severidad];
+  const fact = Object.entries(FACTORES)
+    .filter(([k])=>d[k])
+    .map(([k,f])=>`${f.et}: ${esc(d[k])}`).join(" · ");
+  return `
+  <article class="rep">
+    <div class="rep-top">
+      <div>
+        <p class="num">Heurística ${String(h.n).padStart(2,"0")}</p>
+        <h3>${esc(h.nombre)}</h3>
+      </div>
+      <span class="tag" data-s="${d.severidad}">${d.severidad} · ${esc(s.et)}</span>
+    </div>
+    <p class="donde">${esc(d.pantalla || "Pantalla no indicada")}</p>
+    <div class="rep-cols">
+      <dl>
+        ${d.quePasa.trim() ? `<dt>Qué pasa</dt><dd>${esc(d.quePasa)}</dd>` : ""}
+        ${d.porQue.trim() ? `<dt>Por qué ${d.severidad===0?"cumple":"rompe"} la heurística</dt><dd>${esc(d.porQue)}</dd>` : ""}
+        ${d.impactoUsuario.trim() ? `<dt>Impacto en la persona usuaria</dt><dd>${esc(d.impactoUsuario)}</dd>` : ""}
+        ${fact ? `<dt>Factores</dt><dd style="font-size:13.5px;color:var(--muted)">${fact}</dd>` : ""}
+      </dl>
+      <div>${d.captura ? `<img src="${d.captura}" alt="Captura de ${esc(h.nombre)}">` : ""}</div>
+    </div>
+  </article>`;
+}
+
 /* ---------- captura ---------- */
 function capturaHTML(src){
   if(src) return `
@@ -711,8 +871,6 @@ document.getElementById("file-import").onchange = e=>{
   fr.readAsText(f);
   e.target.value = "";
 };
-
-document.getElementById("btn-print").onclick = ()=>window.print();
 
 document.getElementById("btn-reset").onclick = ()=>{
   if(!confirm("Esto borra toda la evaluación cargada en este navegador. ¿Seguro?\n\nSi todavía no exportaste el JSON, cancelá y exportalo primero.")) return;

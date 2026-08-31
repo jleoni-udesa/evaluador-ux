@@ -29,8 +29,10 @@ También funciona desplegado: es HTML estático, se sube a cualquier hosting tal
   de pantalla completa se lo consume solo.
 - Guardado automático en el navegador.
 - **Exportar / importar JSON**, para repartir el trabajo entre el equipo y unirlo después.
-- **Imprimir a PDF**, con estilos de impresión propios: se ocultan los controles y cada ficha
-  se mantiene entera en una página.
+- **Descargar PDF**: una vista de informe aparte, de sólo lectura, que arma el documento final
+  con portada, resumen y todas las fichas cargadas. Se imprime desde ahí eligiendo
+  «Guardar como PDF» en el diálogo del navegador. El informe avisa antes si falta alguna
+  heurística o si no se llegó al piso de 8 leyes, y ese aviso no sale impreso.
 - Resumen de severidad con el promedio y la distribución.
 
 Nada se envía a ningún servidor: todo vive en el navegador de quien evalúa.
