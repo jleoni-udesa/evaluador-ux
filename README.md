@@ -27,7 +27,17 @@ También funciona desplegado: es HTML estático, se sube a cualquier hosting tal
 - Capturas por arrastre o clic. Se redimensionan a 1600 px y se convierten a JPEG antes de
   guardarse, porque el almacenamiento del navegador tiene un techo de ~5 MB y un screenshot
   de pantalla completa se lo consume solo.
-- Guardado automático en el navegador.
+- Guardado automático en el navegador, con aviso visible de que quedó guardado.
+- **Índice lateral** con un punto por criterio que cambia según el avance: sin empezar,
+  empezado, o completo (y en las leyes, del color de cumple/rompe/no aplica).
+- **Anillos de progreso** en la barra superior, siempre a la vista.
+- **Atajos de teclado**: `0`–`4` para severidad, `C`/`R`/`N` para cumple/rompe/no aplica,
+  `J`/`K` para recorrer fichas, `/` para buscar, `G` seguido de `I`/`L`/`H`/`P` para navegar,
+  y `?` para la ayuda. No se disparan mientras se escribe en un campo.
+- **Deshacer** en las acciones destructivas: quitar una captura, vaciar todo o importar
+  encima se revierte durante siete segundos.
+- **Buscador** y filtros por estado o severidad.
+- **Tema** claro, oscuro o el del sistema.
 - **Exportar / importar JSON**, para repartir el trabajo entre el equipo y unirlo después.
 - **Descargar PDF**: una vista de informe aparte, de sólo lectura, que arma el documento final
   con portada, resumen y todas las fichas cargadas. Se imprime desde ahí eligiendo
