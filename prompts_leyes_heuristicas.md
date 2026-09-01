@@ -1,10 +1,10 @@
 # prompts_leyes_heuristicas
 
 **Trabajo práctico:** análisis de leyes UX y heurísticas de Nielsen
-**Producto evaluado:** Cinépolis Argentina — [cinepolis.com.ar](https://www.cinepolis.com.ar)
+**Entregable:** herramienta de evaluación heurística — [evaluador-ux.vercel.app](https://evaluador-ux.vercel.app)
 **Herramienta de IA:** Claude Code (modelo Opus 5), corriendo en la terminal con acceso al
 sistema de archivos, a un navegador automatizado y a la cuenta de GitHub.
-**Período:** 27 de agosto al 1 de septiembre de 2026.
+**Período:** 31 de agosto y 1 de septiembre de 2026.
 
 ---
 
@@ -14,29 +14,68 @@ Los prompts están transcriptos **literalmente, tal como se enviaron**, con sus 
 puntuación original. La consigna pide el texto exacto y no un resumen, así que no los
 corregimos ni los emprolijamos.
 
-El registro cubre la etapa de **construcción del instrumento**. La carga de la evaluación en
-sí la hace el equipo a mano; si en esa etapa se usa IA, los prompts correspondientes se
-agregan al final de este mismo documento.
+El registro arranca en el momento en que replanteamos el trabajo. Los primeros intercambios los
+hicimos sin tener la consigna escrita delante y trabajando sobre una idea aproximada de lo que
+había que hacer; recién en el prompt 2 la pasamos completa, y de ahí en adelante todo se apoya
+en el enunciado y no en lo que nos acordábamos.
 
-Vale aclarar algo que se ve leyendo el registro: el trabajo no fue lineal. A mitad de camino
-cambiamos de rumbo, y varios de los prompts más útiles fueron los que sirvieron para
-**frenar** a la IA, no para hacerla producir.
+Este documento cubre la **construcción del instrumento**. La carga de la evaluación la hace el
+equipo a mano; si en esa etapa se usa IA, los prompts se agregan al final de este mismo
+documento.
 
 ---
 
-## Prompt 1 · Encuadre inicial y elección del producto
+## Prompt 1 · Replantear qué había que construir
 
-**Herramienta:** Claude Code
-**Objetivo:** dar la consigna completa y el producto elegido, para que armara los dos tableros
-desde cero.
+**Herramienta:** Claude Code (con el comando `/grill-with-docs`)
+**Objetivo:** redefinir el entregable a partir de lo que el profesor había mostrado en clase, y
+pedirle a la IA que discutiera el planteo antes de ejecutarlo.
 
 **Prompt completo:**
 
 ```
+el trabajo es mucho mas sencillo. tenemos que hacer un unico artifacto que corremos en
+localhost en el github, la pagina tiene que tener 2 formularios interactivos, uno para cada
+cosa para hacer como un test a distintas paginas. Una con las leyes de heuristica y otro con
+el otro que no me acuerdo.
+
+/grill-with-docs
+```
+
+**Resultado y ajustes:**
+La IA **no escribió una sola línea de código** y en su lugar nos interrogó apoyándose en los
+documentos que teníamos. Buscó en el disco y en el Drive y encontró que estábamos mezclando
+**dos trabajos prácticos distintos de la misma materia**: la palabra "formulario" venía de la
+Consigna '15 del deck de investigación cualitativa, no de éste. También marcó que decir "el
+otro que no me acuerdo" era señal de que estábamos reconstruyendo el enunciado de memoria, y
+que el segundo tablero eran las leyes UX.
+
+Nos hizo cinco preguntas numeradas, con una recomendación por cada una, y avisó que no iba a
+tocar nada hasta que las contestáramos.
+
+**Aprendizaje:** cuando el pedido sale de la memoria y no de un papel, conviene pedirle a la IA
+que discuta antes de producir.
+
+---
+
+## Prompt 2 · Pasarle la consigna completa
+
+**Herramienta:** Claude Code
+**Objetivo:** contestar el interrogatorio y, sobre todo, darle el enunciado textual para que
+dejara de trabajar sobre suposiciones.
+
+**Prompt completo:**
+
+```
+1. Me lo mostro el profesor, es tal como te lo describi, no es nada muy refinado
+2. nono, son distinas tareas ahi te paso la consigna:
+
+Algunas aclaraciones sobre la tarea de análisis de leyes y heurísticas.
+
 Qué tienen que crear
 
-* Dos tableros de evaluación, construidos como una mini-web con asistencia de IA generativa
-de código (Claude Code, Cursor, v0, Lovable, Bolt o similar).
+* Dos tableros de evaluación, construidos como una mini-web con asistencia de IA generativa de
+código  (Claude Code, Cursor, v0, Lovable, Bolt o similar).
 * Puede ser un solo proyecto con dos vistas/secciones, o dos proyectos separados; en ambos
 casos tienen que quedar desplegados en Vercel.
 * Cada tablero funciona como un documento de evaluación navegable: por cada ley o heurística,
@@ -59,154 +98,63 @@ Por cada ley documentada, el tablero muestra:
 * Captura: screenshot del punto exacto de la interfaz donde se observa.
 * Explicación: 1-2 frases que respondan la pregunta guía de esa ley: qué pasa y por qué.
 
-la pagina que elegi es www.cinepolis.com.ar
+Tablero 2: heurísticas de Nielsen
+A diferencia de las leyes UX, acá evalúan las 10 heurísticas completas: es el estándar de una
+evaluación heurística real.
+
+Por cada heurística, el tablero muestra:
+
+* Heurística: una de las 10 heurísticas de Nielsen (las 10, sin excepción).
+* Severidad: escala de Nielsen 0-4: 0 no es un problema, 1 cosmético, 2 menor, 3 mayor, 4
+catástrofe de usabilidad.
+* Captura:  screenshot del punto de dolor (severidad ≥ 1) o del punto donde se cumple bien
+(severidad 0).
+* Explicación: qué pasa, por qué rompe o cumple la heurística, y qué impacto tiene en la
+persona usuaria.
+
+Documento de prompts ("prompts_leyes_heuristicas")
+Se sube al Drive del equipo con ese nombre exacto. No es un anexo protocolar: nos interesa ver
+cómo iteraron con la IA, qué funcionó y qué no. Por cada prompt relevante, tiene que incluir:
+
+* Herramienta de IA usada: Claude Code, Cursor, v0, ChatGPT, etc.
+* Objetivo del prompt: qué le pidieron a la IA y para qué parte del tablero.
+* Prompt completo: el texto exacto, no un resumen.
+* Resultado y ajustes: qué devolvió la IA y qué tuvieron que corregir o reformular.
+
+Entregables
+
+* Link al tablero (o los dos tableros) desplegado en Vercel.
+* Link al repositorio en GitHub, público o compartido con el equipo docente.
+* Documento "prompts_leyes_heuristicas" en el Drive del equipo.
+* Fecha de entrega: miércoles 2 de septiembre.
+
+3. local
 ```
 
 **Resultado y ajustes:**
-Construyó una mini-web en Next.js con las dos vistas y la desplegó en Vercel. Antes de escribir
-código recorrió el sitio real con un navegador automatizado y sacó las capturas.
+Éste fue el prompt más productivo de todos, y lo único que hicimos fue copiar y pegar el
+enunciado. Con el texto a la vista, la IA detectó de entrada tres cosas que no estábamos
+cumpliendo:
 
-Dos cosas hubo que corregirle:
+1. **Las etiquetas de severidad estaban mal.** La consigna dice `2 menor` y `3 mayor`; el deck
+   de la clase dice "media prioridad" y "alta prioridad", y nos habíamos guiado por el deck.
+2. **Faltaba el impacto en la persona usuaria.** La consigna pide que la explicación de cada
+   heurística diga qué pasa, por qué, **y qué impacto tiene**. Ese tercer campo no estaba.
+3. **El registro de prompts no servía como estaba**, porque la consigna pide el texto exacto de
+   cada prompt y lo que teníamos era una narración parafraseada.
 
-1. Nos avisó por su cuenta que **le faltaba la "Ficha de referencia rápida"** y que iba a
-   inferir las 14 leyes. Bien que lo dijera, pero quedó como deuda hasta el prompt 8.
-2. El pedido decía "1-2 frases" y hubo que verificarlo explícitamente: recién en una revisión
-   posterior contamos las oraciones de las 14 explicaciones para confirmar que ninguna se
-   pasaba.
+También marcó una contradicción entre nuestra respuesta 3 ("local") y el enunciado que
+acabábamos de pegar, que pide el deploy en Vercel en dos lugares distintos.
+
+**Aprendizaje:** pegar el enunciado textual vale más que cualquier explicación nuestra. Los
+criterios que la IA cumplió mejor fueron los que estaban escritos con todas las letras.
 
 ---
 
-## Prompt 2 · Adjuntar el material de la cátedra
+## Prompt 3 · Cerrar el alcance
 
 **Herramienta:** Claude Code
-**Objetivo:** que trabajara con el deck de la clase en lugar de con conocimiento general, sobre
-todo para la escala de severidad.
-
-**Prompt completo:**
-
-```
-@"/Users/juanpabloleoni/Downloads/Gestalt, leyes UX y heurísticas de Nielsen.pdf"
-```
-
-**Resultado y ajustes:**
-Leyó las 61 páginas y de ahí sacó tres datos que no estaban en el prompt inicial: que el
-tablero 2 son las heurísticas de Nielsen, que se puntúan en una escala de 0 a 4, y que hay que
-entregar también un documento de prompts.
-
-También detectó que **el deck sólo desarrolla 4 de las 14 leyes** (Hick, Fitts, Tesler y Jakob)
-y que la ficha completa es un documento aparte que no teníamos.
-
----
-
-## Prompt 3 · Cuenta de GitHub
-
-**Herramienta:** Claude Code
-**Objetivo:** publicar el repositorio en la cuenta de la facultad y no en la personal.
-
-**Prompt completo:**
-
-```
-publico, pero no uses la cuenta juampmi-pulp, usa la de jleoni@udesa.edu.ar
-```
-
-**Resultado y ajustes:**
-Verificó cuál de las tres cuentas de GitHub configuradas en la máquina correspondía a ese mail
-antes de crear nada. Por iniciativa propia hizo dos cosas que no le habíamos pedido y estaban
-bien: revisó que no hubiera claves ni datos personales en el repo antes de hacerlo público, y
-**corrigió el autor del commit**, que había quedado con otra identidad.
-
----
-
-## Prompt 4 · Diagnóstico del error de deploy
-
-**Herramienta:** Claude Code
-**Objetivo:** entender por qué Vercel rechazaba el proyecto.
-
-**Prompt completo:**
-
-```
-ya entre a vercel, lo importo?
-me dio error, fijate que paso en mi navegador
-```
-
-**Resultado y ajustes:**
-Este fue el prompt más ineficiente de todos, y por culpa nuestra: le pedimos que mirara "el
-navegador" sin decirle cuál. Se conectó al Chrome equivocado, cayó en la pantalla de login de
-Vercel y se perdieron varios intentos.
-
-Lo que sí funcionó fue que, mientras no podía ver la pantalla, **clonó el repositorio y
-reprodujo el build localmente** para descartar que el problema fuera del código. Cuando por fin
-accedió al Chrome correcto, encontró la causa real:
-
-> Build Failed — Vulnerable version of Next.js detected, please update immediately.
-
-Vercel bloquea el deploy si detecta una versión de Next.js con vulnerabilidad crítica. No era
-un problema de permisos ni de la cuenta, como habíamos supuesto: era la versión que la propia
-IA había elegido al armar el proyecto.
-
-**Aprendizaje:** cuando le pedís que mire algo de tu pantalla, decile exactamente dónde está.
-
----
-
-## Prompt 5 · Permiso amplio y verificación
-
-**Herramienta:** Claude Code
-**Objetivo:** destrabar el deploy y que revisara la consigna completa.
-
-**Prompt completo:**
-
-```
-sisi hace lo que queiras, te doy todo el permiso, asegurate de que este funcionando y hayas
-terminado toda la consigna que te doy
-```
-
-**Resultado y ajustes:**
-La segunda mitad del prompt fue la más valiosa. Pedirle explícitamente que **verificara** y que
-**repasara la consigna** hizo que no se quedara en el "listo, deployé": corrió pruebas contra
-el sitio en producción y volvió con una lista de lo que faltaba.
-
-La primera mitad ("hace lo que quieras") no aportó nada. Igual siguió pidiendo confirmación
-antes de cada acción que salía hacia afuera.
-
----
-
-## Prompt 6 · El cambio de rumbo, y el freno
-
-**Herramienta:** Claude Code (con el comando `/grill-with-docs`)
-**Objetivo:** cambiar el entregable por lo que el profesor había mostrado en clase.
-
-**Prompt completo:**
-
-```
-el trabajo es mucho mas sencillo. tenemos que hacer un unico artifacto que corremos en
-localhost en el github, la pagina tiene que tener 2 formularios interactivos, uno para cada
-cosa para hacer como un test a distintas paginas. Una con las leyes de heuristica y otro con
-el otro que no me acuerdo.
-
-/grill-with-docs
-```
-
-**Resultado y ajustes:**
-Éste fue el prompt más importante del trabajo, y no por lo que produjo sino por lo que evitó.
-
-En vez de rehacer todo, la IA **se negó a tocar nada** y nos interrogó apoyándose en los
-documentos. Buscó en el disco y en el Drive, y encontró que estábamos mezclando **dos TPs
-distintos de la misma materia**: la palabra "formulario" venía de la Consigna '15 del deck de
-investigación cualitativa, no de este trabajo. También señaló que decir "el otro que no me
-acuerdo" era señal de estar reconstruyendo la consigna de memoria.
-
-Hicieron falta tres rondas de preguntas para que quedara claro el alcance real. Sin ese freno
-habríamos tirado abajo un trabajo que ya cumplía el enunciado.
-
-**Aprendizaje:** cuando el pedido sale de la memoria y no de un papel, conviene pedirle a la IA
-que discuta antes de ejecutar.
-
----
-
-## Prompt 7 · Respuestas al interrogatorio
-
-**Herramienta:** Claude Code
-**Objetivo:** cerrar el alcance del nuevo entregable.
+**Objetivo:** contestar las rondas siguientes del interrogatorio para definir qué construir.
 
 **Prompt completo (segunda ronda):**
 
@@ -229,21 +177,24 @@ herramineta
 ```
 
 **Resultado y ajustes:**
-Con esto quedó definido: una herramienta vacía, un solo archivo HTML, y la evaluación la carga
-el equipo.
+Con esto quedó definido el entregable: una herramienta de evaluación vacía, en un solo archivo
+HTML, que el equipo completa después.
 
-La IA insistió una vez más en que una herramienta en blanco, sola, no cumple la consigna —que
-pide capturas de puntos de dolor y análisis— y después lo dejó asentado y siguió sin discutir.
-También propuso que la escala fuera la de Nielsen 0-4 más los tres factores que la fundamentan
-(frecuencia, impacto y persistencia), que es lo que respondía mejor a "las ratings que se
-suelen utilizar en ux ui".
+La IA dejó asentado una vez que una herramienta en blanco, sola, no cumple la consigna —que
+pide capturas de puntos de dolor y análisis escrito— y después siguió sin volver sobre el tema.
+Sobre "las ratings que se suelen utilizar en ux ui" propuso la escala de Nielsen 0-4 más los
+tres factores que la fundamentan: **frecuencia, impacto y persistencia**, que es el estándar
+real de una evaluación heurística.
+
+También decidió por su cuenta no pisar el trabajo anterior y crear un repositorio nuevo, para
+que un error no se llevara puesto lo que ya estaba andando.
 
 ---
 
-## Prompt 8 · La ficha de las 14 leyes
+## Prompt 4 · La ficha de las 14 leyes
 
 **Herramienta:** Claude Code
-**Objetivo:** darle la lista oficial de leyes en vez de una inferida.
+**Objetivo:** darle la lista oficial de leyes en lugar de una inventada.
 
 **Prompt completo:**
 
@@ -253,25 +204,26 @@ de aca, si no estan inferilas, son medio obvias siempre,
 ```
 
 **Resultado y ajustes:**
-Buscó las 14 leyes en las 61 páginas y confirmó que **no están**: el deck sólo nombra Hick,
-Fitts, Tesler y Jakob, más Miller en la bibliografía.
+Buscó las 14 leyes en las 61 páginas del deck y confirmó que **no están**: sólo nombra Hick,
+Fitts, Tesler y Jakob, más Miller en la bibliografía. La "Ficha de referencia rápida" que
+menciona la consigna es un documento aparte que no teníamos.
 
-Lo interesante es lo que hizo con el permiso para inferir. En vez de repetir la lista genérica
-que había usado al principio, se dio cuenta de que **los seis principios de Gestalt del deck
-figuran como leyes en Laws of UX**. Con eso rearmó la lista de manera mucho más defendible:
+Lo interesante fue lo que hizo con el permiso para inferir. En vez de tirar una lista genérica,
+se dio cuenta de que **los seis principios de Gestalt que el deck enseña figuran como leyes en
+Laws of UX**, y rearmó la lista sobre el material de la cátedra:
 
-- 4 leyes del deck: Hick, Fitts, Tesler, Jakob
+- 4 leyes que el deck desarrolla: Hick, Fitts, Tesler, Jakob
 - 1 de la bibliografía: Miller
 - 6 principios de Gestalt: proximidad, similitud, región común, cerramiento, continuidad y
   conexión uniforme
 - 3 del canon estándar: umbral de Doherty, efecto Von Restorff y efecto de posición serial
 
-**Once de las catorce salen del material de la cátedra**, contra las cinco de la primera
-versión.
+**Once de las catorce salen del material que dio el profesor.** Dejó además la lista en un
+único array al principio del archivo, para poder cambiarla si aparece la ficha.
 
 ---
 
-## Prompt 9 · Guardado y exportación a PDF
+## Prompt 5 · Guardado y exportación a PDF
 
 **Herramienta:** Claude Code
 **Objetivo:** que la herramienta conservara lo cargado y produjera un archivo entregable.
@@ -284,20 +236,26 @@ subirlo a un drive
 ```
 
 **Resultado y ajustes:**
-La primera mitad ya estaba hecha, y en vez de decirlo y seguir, **lo probó**: recargó la
-página, cerró la pestaña y volvió a abrirla para mostrar que el guardado funcionaba.
+La primera mitad ya estaba hecha, y en vez de decirlo y seguir de largo, **lo probó**: recargó
+la página, cerró la pestaña y volvió a abrirla para mostrar que el guardado funcionaba de
+verdad.
 
 La segunda mitad destapó un problema que no habíamos visto. El botón de imprimir que existía
 mandaba a imprimir **el formulario**, y los campos de texto tienen altura fija: una explicación
-de más de tres líneas **salía cortada en el PDF**. Justo el campo donde va el análisis.
+de más de tres líneas **salía cortada en el PDF**. Justo el campo donde va el análisis, y no lo
+hubiéramos notado hasta abrir el archivo ya entregado.
 
-Lo resolvió con una vista de informe aparte, de sólo lectura, que arma el documento con portada
-y una ficha por hallazgo, con el texto como texto y no como campo. Después generó un PDF de
-prueba y **le extrajo el texto** para comprobar que las explicaciones largas entraran completas.
+Lo resolvió con una vista de informe aparte, de sólo lectura, que arma el documento con portada,
+datos del proyecto, resumen de severidad y una ficha por hallazgo, con el texto como texto y no
+como campo de formulario. Después generó un PDF de prueba y **le extrajo el texto** para
+comprobar que las explicaciones largas entraran completas.
+
+Agregó también un aviso que aparece antes de imprimir si faltan heurísticas o si no se llegó al
+piso de 8 leyes, y que no sale en el impreso.
 
 ---
 
-## Prompt 10 · Mejora de la interfaz
+## Prompt 6 · Mejora de la interfaz
 
 **Herramienta:** Claude Code
 **Objetivo:** subir la calidad visual e interactiva de la herramienta.
@@ -310,34 +268,61 @@ agregale cosas
 ```
 
 **Resultado y ajustes:**
-El prompt era vago a propósito y la respuesta fue mejor que el pedido. En vez de decorar,
+El prompt era vago a propósito y la respuesta fue mejor que el pedido. En lugar de decorar,
 propuso que **la herramienta cumpliera las leyes que evalúa**, y ató cada agregado a un
-principio: anillos de progreso y aviso de guardado para visibilidad del estado, deshacer real
-para control y libertad, atajos de teclado para flexibilidad y eficiencia, panel de ayuda para
-ayuda y documentación, botones grandes de severidad para la ley de Fitts.
+principio concreto:
 
-Agregó además una sección en la portada que explica esas decisiones, así queda a la vista.
+| Agregado | Principio |
+|---|---|
+| Anillos de progreso, aviso de guardado, índice con punto de avance | Visibilidad del estado del sistema |
+| Deshacer real al quitar captura, vaciar o importar | Control y libertad del usuario |
+| Enunciado y pregunta guía siempre a la vista mientras se escribe | Reconocer antes que recordar |
+| Atajos de teclado, inhibidos mientras se escribe en un campo | Flexibilidad y eficiencia de uso |
+| Panel de ayuda con `?` | Ayuda y documentación |
+| Botones de severidad como bloques amplios, no radios diminutos | Ley de Fitts |
+
+Sumó además una sección en la portada que explica esas decisiones, así el criterio queda a la
+vista y no hay que deducirlo.
 
 Probando el rediseño encontró un error propio: al escribir la explicación se actualizaban la
 ficha, el índice y el anillo del encabezado, **pero no el contador de la barra**, que quedaba
-desfasado. Es decir, la herramienta rompía la primera heurística de Nielsen. Lo corrigió.
+desfasado. Dicho de otro modo, la herramienta rompía la primera heurística de Nielsen. Lo
+corrigió y unificó los cuatro lugares en una sola función.
 
 ---
 
-## Prompt 11 · Este documento
+## Prompt 7 · Este documento
 
 **Herramienta:** Claude Code
-**Objetivo:** armar el registro de prompts que pide la consigna.
+**Objetivo:** armar el registro de prompts, y después ajustarlo.
 
-**Prompt completo:**
+**Prompt completo (primero):**
 
 ```
 dale, hace el documento de prompts
 ```
 
+**Prompt completo (ajustes):**
+
+```
+hacelo apartir del prompt 6
+```
+
+```
+sacale eso de cambio de rumbo, antes no habia entendido la consigna, deja dessde ese mensaje,
+despues poner cuando te paso la consigna
+```
+
 **Resultado y ajustes:**
-Transcribió los prompts de la conversación de manera literal, con erratas incluidas, porque la
-consigna pide el texto exacto. Marcó también qué prompts fueron poco eficientes y por qué.
+La primera versión abarcaba toda la conversación y encuadraba el prompt 1 como un "cambio de
+rumbo". Eso estaba mal contado: no habíamos cambiado de rumbo, todavía no teníamos bien
+entendida la consigna. Le pedimos recortar el registro y corregir el encuadre, y además sumar
+el mensaje donde le pasamos el enunciado completo, que en la primera versión faltaba y era
+justamente el más importante.
+
+Al pedirle el recorte avisó que el prompt 1 empieza con "el trabajo es mucho más sencillo" y
+que sin contexto no se entiende más sencillo que qué, y propuso resolverlo con una nota inicial
+en vez de traer los intercambios anteriores.
 
 ---
 
@@ -345,38 +330,34 @@ consigna pide el texto exacto. Marcó también qué prompts fueron poco eficient
 
 ### Funcionó
 
-- **Pegar la consigna textual** en vez de resumirla. Los criterios que la IA cumplió mejor
-  fueron los que estaban escritos con todas las letras.
-- **Adjuntar el material de la cátedra.** De ahí salieron la escala 0-4 y la reconstrucción de
-  las 14 leyes.
-- **Pedirle que verificara contra la fuente oficial.** En un momento afirmó que el sitio usaba
-  un sistema de clasificación por edad extranjero; al pedirle que revisara el glosario oficial
-  de Cinépolis, el hallazgo real resultó ser otro —conviven el sistema INCAA viejo y el nuevo—
-  y quedó mucho más preciso.
-- **Pedirle que midiera en vez de mirar.** Los hallazgos más fuertes salieron de medir el DOM:
-  botones de butaca de 18×18 px, orden de tabulación invertido, 4,3 segundos hasta el primer
-  contenido útil.
-- **Hacerla discutir antes de ejecutar.** El `/grill-with-docs` evitó que rehiciéramos todo por
-  una consigna mal recordada.
-- **Pedirle verificación explícita.** Cada vez que dijimos "asegurate de que funcione", corrió
-  pruebas de verdad en lugar de dar por hecho el resultado.
+- **Pegar el enunciado textual.** Fue el prompt más productivo de todos y lo único que hicimos
+  fue copiar y pegar. De ahí salieron tres correcciones que no habíamos visto: las etiquetas de
+  severidad, el campo de impacto en la persona usuaria, y el formato de este mismo documento.
+- **Hacerla discutir antes de producir.** El `/grill-with-docs` evitó que construyéramos sobre
+  una consigna mal recordada, y detectó que estábamos mezclando dos trabajos prácticos.
+- **Adjuntar el material de la cátedra.** De ahí salió la reconstrucción de las 14 leyes con
+  once tomadas del deck en vez de una lista genérica.
+- **Pedirle que probara en vez de afirmar.** Cuando dijimos "guardá en local storage", en lugar
+  de responder que ya estaba, recargó, cerró la pestaña y lo demostró. Y cuando armó el PDF, le
+  extrajo el texto para verificar que nada quedara cortado.
+- **Dejarla elegir el criterio en tareas abiertas.** "Mejorá el UI" derivó en una idea mejor que
+  la que teníamos: que la herramienta aplique los principios que mide.
 
 ### No funcionó
 
-- **Pedir cosas de memoria.** "Un artefacto con 2 formularios" costó tres rondas de preguntas
-  para descubrir que estábamos mezclando dos trabajos prácticos distintos.
-- **Ser impreciso sobre el entorno.** "Fijate que pasó en mi navegador", con dos Chrome
-  abiertos y sin decir cuál, quemó varios intentos.
-- **"Hacé lo que quieras".** No aceleró nada. Lo que sí sirvió, en ese mismo mensaje, fue
-  "asegurate de que esté funcionando".
-- **Confiar en la primera explicación.** Dimos por sentado que el error de Vercel era de
-  permisos de GitHub. Era la versión de Next.js que la propia IA había elegido.
-- **Prompts vagos para tareas de diseño.** "Mejorá el UI" salió bien de casualidad; la IA tuvo
-  que elegir el criterio por su cuenta.
+- **Pedir cosas de memoria.** El primer prompt de este registro describía el trabajo de memoria
+  y costó tres rondas de preguntas descubrir que mezclaba dos consignas distintas. Con el
+  enunciado a mano, se habría resuelto en un mensaje.
+- **Dar instrucciones que contradicen el enunciado.** Contestamos "local" en el mismo mensaje en
+  el que pegábamos una consigna que pide Vercel en dos lugares. La IA lo marcó, pero es tiempo
+  perdido.
+- **Prompts vagos para tareas de diseño.** "Mejorá el UI para sorprender al profesor" salió bien,
+  pero porque la IA eligió un criterio por su cuenta. Podría haber salido cualquier cosa.
 
 ### Lo que nos llevamos
 
-El patrón que más rindió fue **pedirle a la IA que dudara**: que buscara la fuente antes de
-afirmar, que midiera antes de describir, y que nos interrogara antes de rehacer. Los errores
-que aparecieron —la conclusión apresurada sobre las clasificaciones, el PDF que cortaba el
-texto, el contador desfasado— los encontró ella misma probando, no nosotros leyendo el código.
+Lo que más rindió fue **darle la fuente y pedirle que dude**: pegar el enunciado en vez de
+resumirlo, adjuntar el material en vez de describirlo, y pedirle que verifique en vez de que
+afirme. Los tres errores que aparecieron —las etiquetas de severidad mal, el PDF que cortaba el
+texto y el contador desfasado— los encontró ella misma comparando contra la consigna o probando
+lo que había construido, no nosotros leyendo el código.
