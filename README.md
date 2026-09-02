@@ -8,7 +8,11 @@ y produce dos tableros:
 
 ## Cómo se usa
 
-Es **un solo archivo**. No hace falta instalar ni levantar nada:
+Es **un solo archivo**. Abre ya cargado con la evaluación de Cinépolis Argentina, que viene
+embebida: quien entra por el link ve el trabajo terminado y no un formulario en blanco. El
+botón **Nueva** la vacía para evaluar otro producto.
+
+No hace falta instalar ni levantar nada:
 
 ```
 abrí index.html con doble clic
