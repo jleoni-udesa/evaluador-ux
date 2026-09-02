@@ -312,7 +312,7 @@ kbd{font-family:ui-monospace,SFMono-Regular,Menlo,monospace;font-size:12px;backg
       <button class="btn btn-ghost" id="btn-nueva">Nueva</button>
       <button class="btn btn-ghost" id="btn-import">Importar</button>
       <button class="btn btn-ghost" id="btn-export">Exportar</button>
-      <a class="btn btn-primary" href="#/informe" id="btn-informe">Descargar PDF</a>
+      <a class="btn btn-primary" href="#/informe" id="btn-informe">Ver informe</a>
     </div>
   </div>
 </header>
@@ -606,6 +606,13 @@ function vistaInicio(){
       </div>
     </section>
 
+    ${(!nLeyes() && !nHeu() && document.getElementById("semilla")) ? `
+    <section class="panel" style="border-color:var(--accent)">
+      <h3>Evaluación incluida</h3>
+      <p style="margin:0 0 16px;color:var(--muted);font-size:14.5px">Esta herramienta viene con una evaluación de ejemplo ya cargada y ahora está vacía. Podés volver a cargarla.</p>
+      <button class="btn btn-primary" id="btn-restaurar">Cargar la evaluación incluida</button>
+    </section>` : ""}
+
     <section class="cards">
       <a class="card-link" href="#/leyes">
         <p class="n">Tablero 01</p>
@@ -645,6 +652,9 @@ function vistaInicio(){
       </div>
     </section>
   </div>`;
+
+  const rest=document.getElementById("btn-restaurar");
+  if(rest) rest.onclick=()=>conDeshacer("Evaluación cargada",()=>{ const x=semilla(); if(x) S=x; });
 
   [["p-producto","producto"],["p-url","url"],["p-evaluador","evaluador"],["p-fecha","fecha"]].forEach(([el,k])=>{
     const n=document.getElementById(el);
@@ -967,7 +977,7 @@ function vistaInforme(){
     <div class="no-print" style="padding:26px 0 0;display:flex;gap:10px;align-items:center;flex-wrap:wrap">
       <a class="btn btn-ghost" href="#/">← Volver a editar</a>
       <button class="btn btn-primary" id="ir-imprimir">Descargar PDF</button>
-      <span style="font-size:13px;color:var(--muted-2)">En el diálogo elegí <b>Destino → Guardar como PDF</b>.</span>
+      <span style="font-size:13px;color:var(--muted-2)">Se abre el diálogo de impresión: elegí <b>Destino → Guardar como PDF</b> y después <b>Guardar</b>.</span>
     </div>
     ${avisos.length?`<div class="aviso no-print"><b>Revisá esto antes de entregar</b>${avisos.map(a=>`<div>· ${esc(a)}</div>`).join("")}</div>`:""}
 
