@@ -455,17 +455,31 @@ function tieneContenido(e){
   return hay(e.leyes)||hay(e.heuristicas);
 }
 let S = (()=>{
+  let guardado=null, hayGuardado=false, bandera=false;
   try{
     const r=localStorage.getItem(CLAVE);
-    const guardado = r ? normalizar(JSON.parse(r)) : null;
-    if(tieneContenido(guardado)) return guardado;
-    if(!localStorage.getItem(CLAVE_SEMBRADO)){
-      const s=semilla();
-      if(s){ localStorage.setItem(CLAVE_SEMBRADO,"1"); return s; }
-    }
-    if(guardado) return guardado;
+    hayGuardado = r!==null;
+    if(r) guardado=normalizar(JSON.parse(r));
+    bandera = !!localStorage.getItem(CLAVE_SEMBRADO);
   }catch(e){}
-  return estadoVacio();
+
+  // Lo cargado gana siempre que tenga contenido real.
+  if(tieneContenido(guardado)) return guardado;
+
+  // Vacío a propósito: hay un estado vacío guardado y la bandera puesta.
+  if(hayGuardado && bandera) return guardado || estadoVacio();
+
+  // Cualquier otro caso siembra, y deja el resultado guardado: si no, la
+  // bandera quedaría puesta sin datos y la próxima visita abriría vacía.
+  const x=semilla();
+  if(x){
+    try{
+      localStorage.setItem(CLAVE_SEMBRADO,"1");
+      localStorage.setItem(CLAVE, JSON.stringify(x));
+    }catch(e){}
+    return x;
+  }
+  return guardado || estadoVacio();
 })();
 
 let avisoCuota=false, tSaved=null;
