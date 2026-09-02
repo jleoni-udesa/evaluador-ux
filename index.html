@@ -444,14 +444,26 @@ function semilla(){
     return normalizar(JSON.parse(el.textContent));
   }catch(e){ return null; }
 }
+/* ¿Hay algo cargado de verdad? Un estado guardado pero vacío —de una visita
+   anterior a que existiera la semilla— no debe tapar la evaluación embebida. */
+function tieneContenido(e){
+  if(!e) return false;
+  const p=e.proyecto||{};
+  if((p.producto||"").trim()||(p.url||"").trim()||(p.evaluador||"").trim()) return true;
+  const hay=o=>Object.values(o||{}).some(d=>d && Object.entries(d).some(([k,v])=>
+    k==="severidad" ? v!==null && v!==undefined : typeof v==="string" && v.trim()));
+  return hay(e.leyes)||hay(e.heuristicas);
+}
 let S = (()=>{
   try{
     const r=localStorage.getItem(CLAVE);
-    if(r) return normalizar(JSON.parse(r));
+    const guardado = r ? normalizar(JSON.parse(r)) : null;
+    if(tieneContenido(guardado)) return guardado;
     if(!localStorage.getItem(CLAVE_SEMBRADO)){
       const s=semilla();
       if(s){ localStorage.setItem(CLAVE_SEMBRADO,"1"); return s; }
     }
+    if(guardado) return guardado;
   }catch(e){}
   return estadoVacio();
 })();
